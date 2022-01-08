@@ -16,19 +16,19 @@ export interface List {
     id: ListID;
     title: string;
     owner: UserID;
-    createdAt: string;
-    lastUpdated: string;
+    // createdAt: string;
+    // lastUpdated: string;
     editors: UserID[];
-    items: ListItemID[];
+    items: ListItem[];
 }
 
 export interface ListItem {
-    id: ListItemID;
+    // id: ListItemID;
     text: string;
-    notes: string;
+    notes?: string;
     createdBy: UserID;
-    createdAt: string;
-    completed: boolean;
-    completedBy: UserID;
-    completedAt: string;
+    // createdAt: string;
+    completed?: boolean;
+    completedBy?: UserID;
+    // completedAt?: string;
 }

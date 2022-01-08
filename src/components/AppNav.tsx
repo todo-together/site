@@ -37,7 +37,7 @@ export default function MenuAppBar({ auth = true }: { auth?: boolean }) {
             >
               <MenuIcon />
             </IconButton> */}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
+            <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
               To-Do Together
             </Typography>
             {auth && (

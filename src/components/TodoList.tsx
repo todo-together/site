@@ -10,6 +10,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+
 
 
 const listData = {
@@ -48,23 +55,47 @@ const listData = {
   ],
 }
 
+interface UserData {
+  firstName: string;
+  lastName: string;
+}
+
+interface ListItemData {
+  text: string;
+  notes?: string;
+  createdBy: UserData;
+  completed?: boolean;
+  completedBy?: UserData;
+}
+
+interface ListData {
+  title: string;
+  description?: string;
+  owner: UserData;
+  createdAt: string;
+  editors: UserData[];
+  items: ListItemData[];
+}
+
 // Inner todo list component
-export default function TodoList() {
+export default function TodoList({ list }: {list: ListData}) {
   return (
     <div>
       <Typography variant="h4">
-        { listData.title }
+        { list.title }
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        created by { listData.createdBy }
+        created by { list.owner.firstName } { list.owner.lastName }
       </Typography>
       <Typography variant="body1">
-        { listData.description }
+        { list.description }
       </Typography>
+
+      <Divider style={{ marginTop: "20px", }}/>
 
       <TableContainer>
         <Table>
-          <TableHead>
+          {/* <TableHead>
             <TableRow>
               <TableCell>Status</TableCell>
               <TableCell>Item</TableCell>
@@ -72,14 +103,14 @@ export default function TodoList() {
               <TableCell>Created By</TableCell>
               <TableCell>Completed By</TableCell>
             </TableRow>
-          </TableHead>
+          </TableHead> */}
           <TableBody>
-            { listData.items.map(item => (
+            { list.items.map(item => (
               <TableRow key={item.text}>
                 <TableCell>
                   <IconButton>
                     <Icon style={{
-                      color: item.completed ? "green" : "red",
+                      color: item.completed ? "green" : "#f0f0f0",
                     }}>
                       {
                         item.completed ? "check_circle" : "circle"
@@ -91,27 +122,58 @@ export default function TodoList() {
                   { item.text }
                 </TableCell>
                 <TableCell>
-                  { item.notes }
-                </TableCell>
-                <TableCell>
-                  { item.completed ? "Yes" : "No" }
+                  <ButtonGroup
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginLeft: "auto",
+                      marginRight: "0px",
+                    }}
+                  >
+                    <IconButton>
+                      <Icon color="info">
+                        info_outline
+                      </Icon>
+                    </IconButton>
+                    <IconButton>
+                      <Icon color="error">
+                        delete_outline
+                      </Icon>
+                    </IconButton>
+                  </ButtonGroup>
                 </TableCell>
               </TableRow>
             )) }
             <TableRow key={listData.items.length}>
               <TableCell>
-                {/* <IconButton>
+                <IconButton>
                   <Icon>
-                    circle
+                    add_circle
                   </Icon>
-                </IconButton> */}
+                </IconButton>
               </TableCell>
               <TableCell>
-                <Typography variant="body1">
-                  Click to add an item
-                </Typography>
+                <FormControl
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <TextField 
+                    variant="standard"
+                    fullWidth
+                    placeholder='Add an item'    
+                    onChange={e => {
+                      console.log(e.target.value);
+                    }}
+                    onBlur={e => {
+                      console.log(e.target.value);
+                    }} 
+                    onKeyDown={e => {
+                      console.log(e.key);
+                    }}     
+                  />
+                </FormControl>
               </TableCell>
-              <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableBody>

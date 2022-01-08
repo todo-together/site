@@ -14,8 +14,8 @@ import Icon from '@mui/material/Icon';
 // text, notes, completed, createdBy, completedBy
 export default function TodoItem({  }) {
   return (
-    <Box>
-
-    </Box>
+    <TableRow>
+      <TableCell></TableCell>
+    </TableRow>
   );
 }

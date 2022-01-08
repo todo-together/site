@@ -9,8 +9,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
+import Tooltip from "@mui/material/Tooltip";
 
 import { getColor } from '../colors'; // Move this up to list body?
+import UserIcon from './UserIcon';
 
 const listData = [
   {
@@ -39,25 +41,29 @@ const listData = [
   },
 ];
 
-export default function ListInfo() {
+interface UserData {
+  firstName: string;
+  lastName: string;
+  isMe?: boolean;
+  isOwner?: boolean;
+}
+
+export default function ListInfo({ users = [] }: { users: UserData[] }) {
   return (
     <div>
       <Typography variant="h4">
-        ListInfo
+        Editors
       </Typography>
       <Divider />
       
       <List>
         {listData.map((d, i) => (
           <ListItem key={i}>
-            <div 
-              style={{
-                marginRight: "10px",
-                width: "25px",
-                height: "25px",
-                borderRadius: "12px",
-                backgroundColor: getColor(i),
-              }}
+            <UserIcon 
+              size={"30px"}
+              fill={getColor(i)}
+              text={`${d.firstName[0]}${d.lastName[0]}`.toUpperCase()}
+              tooltip={`${d.firstName} ${d.lastName}`}
             />
             <ListItemText primary={`${d.firstName} ${d.lastName}`} />
             <div>
