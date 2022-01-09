@@ -16,66 +16,33 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
+import Tooltip from '@mui/material/Tooltip';
 
+import UserIcon from './UserIcon';
 
+import { ListData } from '../types';
 
-const listData = {
-  title: "Groceries",
-  createdBy: "John Doe",
-  createdAt: "2021-02-03",
-  description: "Our family grocery list! This has all the important info in it. It's a long description that might even wrap to multiple lines.",
-  editors: [
+// interface UserData {
+//   firstName: string;
+//   lastName: string;
+// }
 
-  ],
-  items: [
-    {
-      id: 1,
-      text: "Milk",
-      notes: "2%",
-      completed: false,
-      completedBy: undefined,
-      completedAt: undefined,
-    },
-    {
-      id: 2,
-      text: "Eggs",
-      notes: undefined,
-      completed: false,
-      completedBy: undefined,
-      completedAt: undefined,
-    },
-    {
-      id: 3,
-      text: "Bread",
-      notes: "2%",
-      completed: true,
-      completedBy: undefined,
-      completedAt: undefined,
-    },
-  ],
-}
+// interface ListItemData {
+//   text: string;
+//   notes?: string;
+//   createdBy: UserData;
+//   completed?: boolean;
+//   completedBy?: UserData;
+// }
 
-interface UserData {
-  firstName: string;
-  lastName: string;
-}
-
-interface ListItemData {
-  text: string;
-  notes?: string;
-  createdBy: UserData;
-  completed?: boolean;
-  completedBy?: UserData;
-}
-
-interface ListData {
-  title: string;
-  description?: string;
-  owner: UserData;
-  createdAt: string;
-  editors: UserData[];
-  items: ListItemData[];
-}
+// interface ListData {
+//   title: string;
+//   description?: string;
+//   owner: UserData;
+//   createdAt: string;
+//   editors: UserData[];
+//   items: ListItemData[];
+// }
 
 // Inner todo list component
 export default function TodoList({ list }: {list: ListData}) {
@@ -92,34 +59,42 @@ export default function TodoList({ list }: {list: ListData}) {
       </Typography>
 
       <Divider style={{ marginTop: "20px", }}/>
-
       <TableContainer>
         <Table>
-          {/* <TableHead>
+          <TableHead>
             <TableRow>
-              <TableCell>Status</TableCell>
-              <TableCell>Item</TableCell>
-              <TableCell>Notes</TableCell>
-              <TableCell>Created By</TableCell>
               <TableCell>Completed By</TableCell>
+              <TableCell>To-Do Item</TableCell>
+              <TableCell>Created By</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
-          </TableHead> */}
+          </TableHead>
           <TableBody>
             { list.items.map(item => (
               <TableRow key={item.text}>
                 <TableCell>
-                  <IconButton>
-                    <Icon style={{
-                      color: item.completed ? "green" : "#f0f0f0",
-                    }}>
-                      {
-                        item.completed ? "check_circle" : "circle"
-                      }
-                    </Icon>
-                  </IconButton>
+                  <Tooltip title={item.completed ? "Mark as completed" : "Mark as incomplete"}>
+                    <IconButton>
+                      <Icon style={{
+                        color: item.completed ? "green" : "#f0f0f0",
+                      }}>
+                        {
+                          item.completed ? "check_circle" : "circle"
+                        }
+                      </Icon>
+                    </IconButton>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
                   { item.text }
+                </TableCell>
+                <TableCell>
+                  <UserIcon 
+                    text={
+                      `${item.createdBy.firstName[0]}${item.createdBy.lastName[0]}`
+                    }
+                    fill="#aaaaaa"
+                  />
                 </TableCell>
                 <TableCell>
                   <ButtonGroup
@@ -130,21 +105,25 @@ export default function TodoList({ list }: {list: ListData}) {
                       marginRight: "0px",
                     }}
                   >
-                    <IconButton>
-                      <Icon color="info">
-                        info_outline
-                      </Icon>
-                    </IconButton>
-                    <IconButton>
-                      <Icon color="error">
-                        delete_outline
-                      </Icon>
-                    </IconButton>
+                    <Tooltip title="Item Info">
+                      <IconButton>
+                        <Icon color="info">
+                          info_outline
+                        </Icon>
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Item">
+                      <IconButton>
+                        <Icon color="error">
+                          delete_outline
+                        </Icon>
+                      </IconButton>
+                    </Tooltip>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
             )) }
-            <TableRow key={listData.items.length}>
+            <TableRow key={list.items.length}>
               <TableCell>
                 <IconButton>
                   <Icon>

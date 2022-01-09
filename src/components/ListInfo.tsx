@@ -2,17 +2,17 @@ import React from "react";
 
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Chip from '@mui/material/Chip';
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
 
-import { getColor } from '../colors'; // Move this up to list body?
-import UserIcon from './UserIcon';
+import { getColor } from "../colors"; // Move this up to list body?
+import UserIcon from "./UserIcon";
 
 const listData = [
   {
@@ -51,29 +51,37 @@ interface UserData {
 export default function ListInfo({ users = [] }: { users: UserData[] }) {
   return (
     <div>
-      <Typography variant="h4">
-        Editors
-      </Typography>
+      <Typography variant="h4">Editors</Typography>
       <Divider />
-      
+
       <List>
-        {listData.map((d, i) => (
+        {users.map((d, i) => (
           <ListItem key={i}>
-            <UserIcon 
+            <UserIcon
               size={"30px"}
               fill={getColor(i)}
               text={`${d.firstName[0]}${d.lastName[0]}`.toUpperCase()}
               tooltip={`${d.firstName} ${d.lastName}`}
             />
-            <ListItemText primary={`${d.firstName} ${d.lastName}`} />
-            <div>
-              {
-                d.isMe && <Chip label="Me" variant="outlined" style={{marginLeft: "5px"}}/>
-              }
-              {
-                d.isOwner && <Chip label="Owner" variant="outlined" style={{marginLeft: "5px"}}/>
-              }
-            </div>
+            <ListItemText 
+              primary={`${d.firstName} ${d.lastName}`} 
+              secondary={<>
+                {d.isMe && (
+                  <Chip
+                    label="Me"
+                    variant="outlined"
+                    style={{ marginLeft: "5px", marginBottom: "5px" }}
+                  />
+                )}
+                {d.isOwner && (
+                  <Chip
+                    label="Owner"
+                    variant="outlined"
+                    style={{ marginLeft: "5px" }}
+                  />
+                )}
+              </>}
+            />
           </ListItem>
         ))}
       </List>

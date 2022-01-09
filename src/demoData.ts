@@ -1,9 +1,9 @@
-export const demoData = {
-  user: {
-    id: "u001",
-    firstName: "Austin",
-    lastName: "Poor",
-  },
+import { UserData } from './types';
+
+export const demoData: UserData = {
+  id: "u001",
+  firstName: "Austin",
+  lastName: "Poor",
   friends: [
     {
       id: "u002",
@@ -110,4 +110,5 @@ export const demoData = {
       ],
     },
   ],
+  friendLists: [],
 };

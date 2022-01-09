@@ -6,29 +6,22 @@ import TodoList from './TodoList';
 import ListOfLists from './ListOfLists';
 import ListInfo from './ListInfo';
 
-interface UserData {
-  firstName: string;
-  lastName: string;
-}
+import { UserData } from '../types';
 
-interface ListItemData {
-  text: string;
-  notes?: string;
-  createdBy: UserData;
-  completed?: boolean;
-  completedBy?: UserData;
-}
-
-interface ListData {
-  title: string;
-  owner: UserData;
-  createdAt: string;
-  editors: UserData[];
-  items: ListItemData[];
-}
+const aList = {
+  id: "l001",
+  title: "My Lists",
+  owner: {
+    id: "u001",
+    firstName: "John",
+    lastName: "Doe",
+  },
+  editors: [],
+  items: [],
+};
 
 // Contains everything below the AppNav.
-export default function ListBody({ lists }: {lists: ListData[]}) {
+export default function ListBody({userData}: {userData: UserData}) {
   const [selectedList, setSelectedList] = useState(0);
   return (
     <div
@@ -37,29 +30,56 @@ export default function ListBody({ lists }: {lists: ListData[]}) {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={3}>
+        <Grid item xs={2.5}>
           <div>
             <ListOfLists 
-              lists={lists.map(l => ({
-                title: l.title,
-                owner: {
-                  firstName: l.owner.firstName,
-                  lastName: l.owner.lastName,
-                }
-              }))}
-              selected={selectedList}
-              onSelect={setSelectedList}
+              lists={[aList]}
+              selected={0}
+              onSelect={(i) => undefined}
+            // lists={userData.lists.map(l => ({
+            //     title: l.title,
+            //     owner: {
+            //       firstName: l.owner.firstName,
+            //       lastName: l.owner.lastName,
+            //     }
+            //   }))}
+              // selected={selectedList}
+              // onSelect={setSelectedList}
             />
           </div>
         </Grid>
         <Grid item xs>
           <div>
-            <TodoList list={lists[selectedList]}/>
+            <TodoList 
+              // list={userData.lists[selectedList]}
+              list={aList}
+            />
           </div>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2.5}>
           <div>
-            <ListInfo />
+            {/* <ListInfo 
+              users={[
+                userData.lists[selectedList].owner,
+                ...userData.lists[selectedList].editors,
+              ].map(u => ({
+                firstName: u.firstName,
+                lastName: u.lastName,
+                isMe: u.id === userData.id,
+                isOwner: u.id === userData.lists[selectedList].owner.id,
+              }))}
+            /> */}
+            <ListInfo 
+              users={[
+                aList.owner,
+                ...aList.editors,
+              ].map(u => ({
+                firstName: u.firstName,
+                lastName: u.lastName,
+                isMe: u.id === userData.id,
+                isOwner: u.id === aList.owner.id,
+              }))}
+            />
           </div>
         </Grid>
       </Grid>

@@ -6,7 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 export default function UserIcon({
   text,
   fill = "#fafafa",
-  size = 30,
+  size = "30px",
   style = {},
   tooltip = false,
   ...props

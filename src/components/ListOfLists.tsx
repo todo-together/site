@@ -5,7 +5,8 @@ import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Icon from "@mui/material/Icon";
 
 interface ListInfo {
   title: string;
@@ -46,6 +47,17 @@ export default function ListOfLists({
             </ListItemButton>
           ))
         }
+        <ListItemButton
+          key={lists.length}
+          onClick={() => undefined}
+        >
+          <ListItemIcon>
+            <Icon>
+              add
+            </Icon>
+          </ListItemIcon>
+          <ListItemText primary="Add a list"/>
+        </ListItemButton>
       </List>
     </div>
   );

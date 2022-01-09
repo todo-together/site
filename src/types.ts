@@ -2,33 +2,40 @@ export type UserID = string;
 export type ListID = string;
 export type ListItemID = string;
 
-export interface User {
+export interface UserData {
     id: UserID;
-    email: string;
+    email?: string;
     firstName: string;
     lastName: string;
-    friends: UserID[];
-    lists: ListID[];
-    friendLists: ListID[];
+    friends: UserDataShort[];
+    lists: ListData[];
+    friendLists: ListData[];
 }
 
-export interface List {
+export interface UserDataShort {
+    id: UserID;
+    firstName: string;
+    lastName: string;
+}
+
+export interface ListData {
     id: ListID;
     title: string;
-    owner: UserID;
-    // createdAt: string;
-    // lastUpdated: string;
-    editors: UserID[];
-    items: ListItem[];
+    owner: UserDataShort;
+    description?: string;
+    createdAt?: string;
+    lastUpdated?: string;
+    editors: UserDataShort[];
+    items: ListItemData[];
 }
 
-export interface ListItem {
+export interface ListItemData {
     // id: ListItemID;
     text: string;
     notes?: string;
-    createdBy: UserID;
-    // createdAt: string;
+    createdBy: UserDataShort;
+    createdAt?: string;
     completed?: boolean;
-    completedBy?: UserID;
+    completedBy?: UserDataShort;
     // completedAt?: string;
 }
