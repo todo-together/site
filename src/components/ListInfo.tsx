@@ -68,6 +68,7 @@ export default function ListInfo({ users = [] }: { users: UserData[] }) {
               secondary={<>
                 {d.isMe && (
                   <Chip
+                    component="span"
                     label="Me"
                     variant="outlined"
                     style={{ marginLeft: "5px", marginBottom: "5px" }}
@@ -75,6 +76,7 @@ export default function ListInfo({ users = [] }: { users: UserData[] }) {
                 )}
                 {d.isOwner && (
                   <Chip
+                    component="span"
                     label="Owner"
                     variant="outlined"
                     style={{ marginLeft: "5px" }}

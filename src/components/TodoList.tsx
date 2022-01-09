@@ -22,43 +22,38 @@ import UserIcon from './UserIcon';
 
 import { ListData } from '../types';
 
-// interface UserData {
-//   firstName: string;
-//   lastName: string;
-// }
-
-// interface ListItemData {
-//   text: string;
-//   notes?: string;
-//   createdBy: UserData;
-//   completed?: boolean;
-//   completedBy?: UserData;
-// }
-
-// interface ListData {
-//   title: string;
-//   description?: string;
-//   owner: UserData;
-//   createdAt: string;
-//   editors: UserData[];
-//   items: ListItemData[];
-// }
 
 // Inner todo list component
-export default function TodoList({ list }: {list: ListData}) {
+export default function TodoList({ list }: { list: ListData }) {
   return (
     <div>
       <Typography variant="h4">
-        { list.title }
+        {list.title}
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        created by { list.owner.firstName } { list.owner.lastName }
+        created by {list.owner.firstName} {list.owner.lastName}
       </Typography>
       <Typography variant="body1">
-        { list.description }
+        {list.description}
       </Typography>
 
-      <Divider style={{ marginTop: "20px", }}/>
+      <div style={{ height: "25px" }} />
+
+      <ButtonGroup variant="outlined" size="small">
+        <Button>
+          Edit List
+        </Button>
+        <Button>
+          Delete List
+        </Button>
+        <Button>
+          Refresh List (tmp)
+        </Button>
+      </ButtonGroup>
+
+      <div style={{ height: "25px" }} />
+
+      <Divider style={{ marginTop: "20px", }} />
       <TableContainer>
         <Table>
           <TableHead>
@@ -70,7 +65,7 @@ export default function TodoList({ list }: {list: ListData}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            { list.items.map(item => (
+            {list.items.map((item, i) => (
               <TableRow key={item.text}>
                 <TableCell>
                   <Tooltip title={item.completed ? "Mark as completed" : "Mark as incomplete"}>
@@ -86,10 +81,10 @@ export default function TodoList({ list }: {list: ListData}) {
                   </Tooltip>
                 </TableCell>
                 <TableCell>
-                  { item.text }
+                  {item.text}
                 </TableCell>
                 <TableCell>
-                  <UserIcon 
+                  <UserIcon
                     text={
                       `${item.createdBy.firstName[0]}${item.createdBy.lastName[0]}`
                     }
@@ -105,24 +100,46 @@ export default function TodoList({ list }: {list: ListData}) {
                       marginRight: "0px",
                     }}
                   >
-                    <Tooltip title="Item Info">
-                      <IconButton>
-                        <Icon color="info">
+                    <IconButton
+                      disabled={i === 0}
+                    >
+                      <Tooltip title="Move Item Up">
+                        <Icon
+                          color={i === 0 ? "disabled" : "info"}
+                        >
+                          keyboard_arrow_up
+                        </Icon>
+                      </Tooltip>
+                    </IconButton>
+                    <IconButton
+                      disabled={i === list.items.length - 1}
+                    >
+                      <Tooltip title="Move Item Down">
+                        <Icon
+                          color={i === list.items.length - 1 ? "disabled" : "info"}
+                        >
+                          keyboard_arrow_down
+                        </Icon>
+                      </Tooltip>
+                    </IconButton>
+                    <IconButton disabled> {/* temporarily disabled */}
+                      <Tooltip title="Item Info">
+                        <Icon color="secondary">
                           info_outline
                         </Icon>
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Item">
-                      <IconButton>
+                      </Tooltip>
+                    </IconButton>
+                    <IconButton>
+                      <Tooltip title="Delete Item">
                         <Icon color="error">
                           delete_outline
                         </Icon>
-                      </IconButton>
-                    </Tooltip>
+                      </Tooltip>
+                    </IconButton>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
-            )) }
+            ))}
             <TableRow key={list.items.length}>
               <TableCell>
                 <IconButton>
@@ -137,22 +154,23 @@ export default function TodoList({ list }: {list: ListData}) {
                     width: "100%",
                   }}
                 >
-                  <TextField 
+                  <TextField
                     variant="standard"
                     fullWidth
-                    placeholder='Add an item'    
+                    placeholder='Add an item'
                     onChange={e => {
                       console.log(e.target.value);
                     }}
                     onBlur={e => {
                       console.log(e.target.value);
-                    }} 
+                    }}
                     onKeyDown={e => {
                       console.log(e.key);
-                    }}     
+                    }}
                   />
                 </FormControl>
               </TableCell>
+              <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableBody>

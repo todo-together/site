@@ -33,32 +33,32 @@ export default function ListBody({userData}: {userData: UserData}) {
         <Grid item xs={2.5}>
           <div>
             <ListOfLists 
-              lists={[aList]}
-              selected={0}
-              onSelect={(i) => undefined}
-            // lists={userData.lists.map(l => ({
-            //     title: l.title,
-            //     owner: {
-            //       firstName: l.owner.firstName,
-            //       lastName: l.owner.lastName,
-            //     }
-            //   }))}
-              // selected={selectedList}
-              // onSelect={setSelectedList}
+              // lists={[aList]}
+              // selected={0}
+              // onSelect={(i) => undefined}
+            lists={userData.lists.map(l => ({
+                title: l.title,
+                owner: {
+                  firstName: l.owner.firstName,
+                  lastName: l.owner.lastName,
+                }
+              }))}
+              selected={selectedList}
+              onSelect={setSelectedList}
             />
           </div>
         </Grid>
         <Grid item xs>
           <div>
             <TodoList 
-              // list={userData.lists[selectedList]}
-              list={aList}
+              list={userData.lists[selectedList]}
+              // list={aList}
             />
           </div>
         </Grid>
         <Grid item xs={2.5}>
           <div>
-            {/* <ListInfo 
+            <ListInfo 
               users={[
                 userData.lists[selectedList].owner,
                 ...userData.lists[selectedList].editors,
@@ -68,8 +68,8 @@ export default function ListBody({userData}: {userData: UserData}) {
                 isMe: u.id === userData.id,
                 isOwner: u.id === userData.lists[selectedList].owner.id,
               }))}
-            /> */}
-            <ListInfo 
+            />
+            {/* <ListInfo 
               users={[
                 aList.owner,
                 ...aList.editors,
@@ -79,7 +79,7 @@ export default function ListBody({userData}: {userData: UserData}) {
                 isMe: u.id === userData.id,
                 isOwner: u.id === aList.owner.id,
               }))}
-            />
+            /> */}
           </div>
         </Grid>
       </Grid>
