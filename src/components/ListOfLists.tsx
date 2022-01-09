@@ -21,10 +21,12 @@ export default function ListOfLists({
   lists = [],
   selected = 0,
   onSelect = (i => undefined),
+  onCreateList = (() => undefined),
 }: {
   lists: ListInfo[];
   selected: number;
   onSelect: (listIdx: number) => void;
+  onCreateList: () => void;
 }) {
   return (
     <div>
@@ -49,7 +51,10 @@ export default function ListOfLists({
         }
         <ListItemButton
           key={lists.length}
-          onClick={() => undefined}
+          onClick={() => {
+            console.log("Opening modal...");
+            onCreateList();
+          }}
         >
           <ListItemIcon>
             <Icon>

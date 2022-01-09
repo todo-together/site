@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import TodoList from './TodoList';
 import ListOfLists from './ListOfLists';
 import ListInfo from './ListInfo';
+import NewListModal from './NewListModal';
 
 import { UserData } from '../types';
 
@@ -21,38 +22,48 @@ const aList = {
 };
 
 // Contains everything below the AppNav.
-export default function ListBody({userData}: {userData: UserData}) {
+export default function ListBody({userData, setUserData}: {userData: UserData, setUserData: (userData: UserData) => void}) {
   const [selectedList, setSelectedList] = useState(0);
+  const [newListModalOpen, setNewListModalOpen] = useState(true);
+
   return (
     <div
       style={{
         padding: "20px",
       }}
     >
+      <NewListModal 
+        open={newListModalOpen}
+        onClose={() => setNewListModalOpen(false)}
+        onSubmit={(title, description) => {
+          // Create new list
+          // ...
+
+          setNewListModalOpen(false);
+        }}
+      />
+
       <Grid container spacing={2}>
         <Grid item xs={2.5}>
           <div>
             <ListOfLists 
-              // lists={[aList]}
-              // selected={0}
-              // onSelect={(i) => undefined}
-            lists={userData.lists.map(l => ({
-                title: l.title,
-                owner: {
-                  firstName: l.owner.firstName,
-                  lastName: l.owner.lastName,
-                }
-              }))}
-              selected={selectedList}
-              onSelect={setSelectedList}
-            />
+              lists={userData.lists.map(l => ({
+                  title: l.title,
+                  owner: {
+                    firstName: l.owner.firstName,
+                    lastName: l.owner.lastName,
+                  }
+                }))}
+                selected={selectedList}
+                onSelect={setSelectedList}
+                onCreateList={() => setNewListModalOpen(true)}
+              />
           </div>
         </Grid>
         <Grid item xs>
           <div>
             <TodoList 
               list={userData.lists[selectedList]}
-              // list={aList}
             />
           </div>
         </Grid>
@@ -69,17 +80,6 @@ export default function ListBody({userData}: {userData: UserData}) {
                 isOwner: u.id === userData.lists[selectedList].owner.id,
               }))}
             />
-            {/* <ListInfo 
-              users={[
-                aList.owner,
-                ...aList.editors,
-              ].map(u => ({
-                firstName: u.firstName,
-                lastName: u.lastName,
-                isMe: u.id === userData.id,
-                isOwner: u.id === aList.owner.id,
-              }))}
-            /> */}
           </div>
         </Grid>
       </Grid>

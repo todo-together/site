@@ -8,11 +8,13 @@ import { demoData } from './demoData';
 
 
 export default function App() {
+  const [userData, setUserData] = useState(demoData);
+  const addList = () => undefined;
+
   return (
     <div className="App">
       <AppNav />
-      {/* <div style={{ height: "20px", }}/> */}
-      <ListBody userData={demoData}/>
+      <ListBody userData={userData} setUserData={setUserData}/>
     </div>
   );
 }
