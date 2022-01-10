@@ -14,32 +14,6 @@ import Tooltip from "@mui/material/Tooltip";
 import { getColor } from "../colors"; // Move this up to list body?
 import UserIcon from "./UserIcon";
 
-const listData = [
-  {
-    firstName: "Austin",
-    lastName: "Poor",
-    isMe: true,
-    isOwner: true,
-  },
-  {
-    firstName: "John",
-    lastName: "Doe",
-    isMe: false,
-    isOwner: false,
-  },
-  {
-    firstName: "Big",
-    lastName: "Foot",
-    isMe: false,
-    isOwner: false,
-  },
-  {
-    firstName: "Sandwich",
-    lastName: "The Dog",
-    isMe: false,
-    isOwner: false,
-  },
-];
 
 interface UserData {
   firstName: string;
