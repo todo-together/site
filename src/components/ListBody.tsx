@@ -24,7 +24,7 @@ const aList = {
 // Contains everything below the AppNav.
 export default function ListBody({userData, setUserData}: {userData: UserData, setUserData: (userData: UserData) => void}) {
   const [selectedList, setSelectedList] = useState(0);
-  const [newListModalOpen, setNewListModalOpen] = useState(true);
+  const [newListModalOpen, setNewListModalOpen] = useState(false);
 
   return (
     <div
