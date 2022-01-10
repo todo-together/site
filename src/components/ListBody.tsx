@@ -32,16 +32,20 @@ export default function ListBody({userData, setUserData}: {userData: UserData, s
         padding: "20px",
       }}
     >
-      <NewListModal 
-        open={newListModalOpen}
-        onClose={() => setNewListModalOpen(false)}
-        onSubmit={(title, description) => {
-          // Create new list
-          // ...
+      {
+        newListModalOpen && (
+          <NewListModal 
+            open={newListModalOpen}
+            onClose={() => setNewListModalOpen(false)}
+            onSubmit={(title, description) => {
+              // Create new list
+              // ...
 
-          setNewListModalOpen(false);
-        }}
-      />
+              setNewListModalOpen(false);
+            }}
+          />
+        )
+      }
 
       <Grid container spacing={2}>
         <Grid item xs={2.5}>
