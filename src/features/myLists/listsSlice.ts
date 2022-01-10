@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { fetchFriends } from './friendsAPI';
+import { fetchMyLists } from './listsAPI';
 
 export interface CounterState {
   value: number;
@@ -20,7 +20,7 @@ const initialState: CounterState = {
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
   async (amount: number) => {
-    const response = await fetchFriends(amount);
+    const response = await fetchMyLists(amount);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }

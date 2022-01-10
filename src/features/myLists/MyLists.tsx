@@ -1,10 +1,10 @@
 import React from "react";
 
 
-export default function Lists() {
+export default function MyLists() {
   return (
     <div>
-      <h1>Profile</h1>
+      <h1>My Lists</h1>
     </div>
   );
 }
