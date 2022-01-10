@@ -20,7 +20,7 @@ export default function NewListModal({ open = false, onClose, onSubmit }: { open
   const [description, setDescription] = useState("");
 
   return (
-    <ClickAwayListener onClickAway={onClose}>
+    // <ClickAwayListener onClickAway={onClose}>
       <Modal
         open={open}
         onClose={onClose}
@@ -58,16 +58,21 @@ export default function NewListModal({ open = false, onClose, onSubmit }: { open
               variant="standard"
               label="Title"
               required
+              onChange={(e) => setTitle(e.target.value)}
             />
             <TextField
               id="new-list-description"
               variant="standard"
               label="Description"
               multiline
+              onChange={(e) => setDescription(e.target.value)}
             />
 
             <ButtonGroup>
-              <Button onClick={() => onSubmit("", "")}>
+              <Button 
+                onClick={() => onSubmit(title, description)}
+                disabled={title === ""}
+              >
                 Create
               </Button>
               <Button onClick={onClose}>
@@ -78,6 +83,6 @@ export default function NewListModal({ open = false, onClose, onSubmit }: { open
           </Stack>
         </Box>
       </Modal>
-    </ClickAwayListener>
+    // </ClickAwayListener>
   );
 }

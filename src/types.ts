@@ -39,3 +39,14 @@ export interface ListItemData {
     completedBy?: UserDataShort;
     // completedAt?: string;
 }
+
+interface ListInfoShort {
+
+}
+
+interface ListEditorInfo {
+  firstName: string;
+  lastName: string;
+  isMe?: boolean;
+  isOwner?: boolean;
+}

@@ -40,6 +40,7 @@ export default function ListBody({userData, setUserData}: {userData: UserData, s
             onSubmit={(title, description) => {
               // Create new list
               // ...
+              console.log("Creating new list:", title, description);
 
               setNewListModalOpen(false);
             }}
@@ -60,7 +61,10 @@ export default function ListBody({userData, setUserData}: {userData: UserData, s
                 }))}
                 selected={selectedList}
                 onSelect={setSelectedList}
-                onCreateList={() => setNewListModalOpen(true)}
+                onCreateList={() => {
+                  console.log("Creating a new list...");
+                  setNewListModalOpen(true);
+                }}
               />
           </div>
         </Grid>
